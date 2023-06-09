@@ -60,13 +60,12 @@ app.component('product-display', {
     },
     methods: {
         addToCart() {
-            this.cart += 1
+            this.$emit('add-to-cart', this.variants[this.selectedVariant].id)
         },
         // solution
         removeFromCart() {
-            if (this.cart >= 1) {
-                this.cart -= 1
-            }
+            this.$emit('remove-from-cart', this.variants[this.selectedVariant].id)
+
         },
         // solution
         updateVariant(index) {
