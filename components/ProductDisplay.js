@@ -32,13 +32,20 @@ app.component('product-display', {
           class="color-circle" 
           :style="{ backgroundColor: variant.color }">
         </div>
-        <button class="button" :class="{ disabledButton: !inStock }" 
-        :disabled="!inStock" @click="addToCart">Add to Cart</button>
-        <!--<button class="button" @click="removeFromCart">Remove Item</button>-->
-
-          <!--<p v-if="onSale">On Sale!</p>-->
+        <button 
+          class="button" 
+          :class="{ disabledButton: !inStock }" 
+          :disabled="!inStock" 
+          v-on:click="addToCart">
+          Add to Cart
+        </button>
+      </div>
+    </div>
+    <review-list v-if="reviews.length" :reviews="reviews"></review-list>
+    <review-form @review-submitted="addReview"></review-form>
         <a :href="url">Altres productes</a>
       </div>` ,  
+      
       data() {
         return {
             product: 'Socks',
@@ -53,6 +60,7 @@ app.component('product-display', {
               { id: 1001, color: 'green',image: './assets/images/socks_green.jpg', quantity: 30 },
               { id: 1002, color: 'blue',image: './assets/images/socks_blue.jpg', quantity: 0},
             ],
+            reviews:[],
             onSale: true,
             url: 'https://luckysocks.es/'
 
@@ -62,15 +70,16 @@ app.component('product-display', {
         addToCart() {
             this.$emit('add-to-cart', this.variants[this.selectedVariant].id)
         },
-        // solution
         removeFromCart() {
             this.$emit('remove-from-cart', this.variants[this.selectedVariant].id)
 
         },
-        // solution
         updateVariant(index) {
             this.selectedVariant = index
-        }
+        },
+        addReview(review) {
+            this.reviews.push(review)
+          }
     },
     computed:{
         title() {
