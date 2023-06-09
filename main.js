@@ -2,7 +2,10 @@ const app = Vue.createApp({
     data() {
         return {
             product: 'Socks',
-            description: 'Calcetins per anar a la moda'
+            image: './assets/images/socks_green.jpg',
+            description: 'Calcetins per anar a la moda',
+            url: 'https://luckysocks.es/'
+
         }
     }
 })
